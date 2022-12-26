@@ -20,7 +20,7 @@ namespace RPGApp.Controllers
 		}
 		public IActionResult Index()
 		{
-			List<ChronologyNoteModel> NoteList = _mapper.Map<List<ChronologyNoteModel>>(_notebook.GetNotebooks("Chronology"));	
+			List<NoteViewModel> NoteList = _mapper.Map<List<NoteViewModel>>(_notebook.GetNotebooks("Chronology"));	
 			return View(NoteList);
 		}
 

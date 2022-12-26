@@ -20,7 +20,7 @@ namespace RPGApp.Controllers
 		}
 		public IActionResult Index()
 		{
-			List<PlotNoteModel> NoteList = _mapper.Map<List<PlotNoteModel>>(_notebook.GetNotebooks("Plot"));	
+			List<NoteViewModel> NoteList = _mapper.Map<List<NoteViewModel>>(_notebook.GetNotebooks("Plot"));	
 			return View(NoteList);
 		}
 

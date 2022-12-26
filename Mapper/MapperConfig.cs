@@ -8,8 +8,7 @@ namespace RPGApp.Mapper
     {
         public MapperConfig()
         {
-            CreateMap<Note, ChronologyNoteModel>();
-            CreateMap<Note, PlotNoteModel>();
+            CreateMap<Note, NoteViewModel>();
             ////CreateMap<Note, NoteModel>();
             ////CreateMap<Note, NoteModel>();
         }
