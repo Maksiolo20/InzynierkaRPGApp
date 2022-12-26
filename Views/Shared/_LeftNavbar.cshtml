@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RPGApp.Data
+@inject ApplicationDbContext _context
+@inject UserManager<User> UserManager
+@{
+	List<Session> sessions = _context.Sessions.Where(x => x.GameMasterId == UserManager.GetUserAsync(User).Result.Id).ToList();
+	int CurrentSession = _context.Users.First(x => x.Id == UserManager.GetUserAsync(User).Result.Id).CurrentSessionId;
+}
+<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" asp-controller="Session" asp-action="ResetSession">
+	<svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+	<span class="fs-4">Menu Sesji</span>
+
+</a>
+<hr>
+<ul class="nav nav-pills flex-column mb-auto">
+	@if (CurrentSession == 0)
+	{
+		@foreach (var item in sessions)
+		{
+			<li class="nav-item">
+				<a class="nav-link text-dark" asp-route-id="@item.Id" asp-controller="Session" asp-action="ChangeSession">
+					<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+					@item.Name</a>
+			</li>
+		}
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-controller="SessionCreator">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+				Utwórz nową sesję
+			</a>
+		</li>
+	}
+	else
+	{
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-controller="Map" asp-action="Index">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+				Strona główna
+			</a>
+		</li>
+		<li>
+			<a href="@Url.Action("Index", "HeroCardFile")" class="nav-link link-dark">
+				<svg class="bi me-2" width="16" height="16"></svg>
+				Karty Postaci
+			</a>
+		</li>
+		<li>
+			<a href="@Url.Action("Index", "BestiaryCardFile")" class="nav-link link-dark">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+				Bestiariusz
+			</a>
+		</li>
+		<li>
+			<a class="nav-link text-dark" asp-controller="Map" asp-action="Index">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+				Mapy Świata
+			</a>
+		</li>
+		<li>
+			<a href="@Url.Action("Index", "Chronology")" class="nav-link link-dark">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+				Notatnik Chronologii
+			</a>
+		</li>
+		<li>
+			<a href="@Url.Action("Index", "Plot")" class="nav-link link-dark">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+				Notatnik Fabularny
+			</a>
+		</li>
+		<li>
+			<a href="#" class="nav-link link-dark">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+				Notatnik Osobisty
+			</a>
+		</li>
+		<li>
+			<a href="#" class="nav-link link-dark">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+				Postaci NPC
+			</a>
+		</li>
+		<li>
+			<a href="#" class="nav-link link-dark">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+				Zakładki do podręczników
+			</a>
+		</li>
+	}
+</ul>
+<hr>
