@@ -7,32 +7,21 @@
     <!-- title input -->
 
     <div class="form-outline mb-4">
-        <label class="form-label" asp-for="Card.Title">Tytuł Notatki</label>
+        <label class="form-label" asp-for="Card.Title">Nazwa Postaci NPC</label>
         <div>
             <input asp-for="Card.Title" class="form-control" />
             <span asp-validation-for="Card.Title" class="text-danger"></span>
         </div>
     </div>
-
-
-@*    <div class="form-outline mb-4">
-        <label class="form-label" asp-for="Card.Title">Tytuł Notatki</label>
-        <div>
-            <input asp-for="Card.Title" class="form-control" />
-            <span asp-validation-for="Card.Title" class="text-danger"></span>
-        </div>
-    </div>*@
-
-
-
     <!-- body input -->
     <div class="form-outline mb-4">
-        <label class="form-label" asp-for="Card.Body">Treść Notatki</label>
+        <label class="form-label" asp-for="Card.Body">Opis Postaci</label>
         <div>
             <textarea asp-for="Card.Body" class="form-control"></textarea>
             <span asp-validation-for="Card.Body" class="text-danger"></span>
         </div>
     </div> 
+    <div>Dodaj PDF Karty Postaci:</div>
     <input type="file" name="file" />
     <input type="submit" class="btn btn-primary" value="Utwórz!" />
 </form>

@@ -37,7 +37,7 @@ namespace RPGApp.Services
 					Body = item.Body,
 					CardId= item.CardId,
 					Title= item.Title,
-					CardPath = $"{_hostingEnviroment.WebRootPath}\\{cardType}\\{item.CardPath}"
+					CardPath = item.CardPath
 				};
 				viewModel.Add(model);
 			}
@@ -48,15 +48,17 @@ namespace RPGApp.Services
 			string UserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             model.SessionId = _context.Users.First(x => x.Id == UserId).CurrentSessionId;
-            model.CardPath = file.FileName;
-
-            string fileName = $"{_hostingEnviroment.WebRootPath}\\{cardType}\\{model.CardPath}";
-			using (FileStream fileStream = System.IO.File.Create(fileName))
+			if (file != null)
 			{
-				file.CopyTo(fileStream);
-				fileStream.Flush();
-			}
+				model.CardPath = file.FileName;
 
+				string fileName = $"{_hostingEnviroment.WebRootPath}\\{cardType}\\{model.CardPath}";
+				using (FileStream fileStream = System.IO.File.Create(fileName))
+				{
+					file.CopyTo(fileStream);
+					fileStream.Flush();
+				}
+			}
 			if (cardType == "HeroCardFiles") model.ChosenCardType = CardType.HeroCardFiles;
 			else if (cardType == "BeastiaryCardFiles") model.ChosenCardType = CardType.BestiaryCardFiles;
 			else model.ChosenCardType = CardType.NPCCardFiles;
