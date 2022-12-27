@@ -24,6 +24,7 @@
     <Folder Include="Stored\Maps\" />
     <Folder Include="wwwroot\HeroCardFiles\" />
     <Folder Include="wwwroot\BestiaryCardFiles\" />
+    <Folder Include="wwwroot\NPCCardFiles\" />
   </ItemGroup>
 
 </Project>

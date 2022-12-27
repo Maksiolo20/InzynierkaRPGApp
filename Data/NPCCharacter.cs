@@ -2,12 +2,7 @@
 
 namespace RPGApp.Data
 {
-	public class NPCCharacter
+	public class NPCCharacter:Card
 	{
-		[Key]
-		public int NPCId { get; set; }
-		public string NPCName { get; set; }
-		public int SessionId { get; set; }
-		public Session Session { get; set; }
 	}
 }

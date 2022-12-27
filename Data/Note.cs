@@ -17,8 +17,7 @@ namespace RPGApp.Data
 		{
 			Chronology,
 			Plot,
-			Personal,
-			NPC
+			Personal
 		}
 
     }

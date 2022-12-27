@@ -6,7 +6,6 @@ using RPGApp.Services;
 using RPGApp.Mapper;
 using AutoMapper;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -20,6 +19,7 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddScoped<INotebook, NotebookService>();
+builder.Services.AddScoped<ICard, CardService>();
 //builder.Services.AddScoped<IMapTiler,MapTilerService>();
 var app = builder.Build();
 

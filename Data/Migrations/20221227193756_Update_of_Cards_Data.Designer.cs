@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RPGApp.Data;
 
@@ -11,9 +12,10 @@ using RPGApp.Data;
 namespace RPGApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221227193756_Update_of_Cards_Data")]
+    partial class Update_of_Cards_Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,8 +264,6 @@ namespace RPGApp.Data.Migrations
 
                     b.HasKey("CardId");
 
-                    b.HasIndex("SessionId");
-
                     b.ToTable("Cards");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Card");
@@ -325,10 +325,7 @@ namespace RPGApp.Data.Migrations
                 {
                     b.HasBaseType("RPGApp.Data.Card");
 
-                    b.Property<int?>("SessionId1")
-                        .HasColumnType("int");
-
-                    b.HasIndex("SessionId1");
+                    b.HasIndex("SessionId");
 
                     b.HasDiscriminator().HasValue("BestiaryCard");
                 });
@@ -337,11 +334,7 @@ namespace RPGApp.Data.Migrations
                 {
                     b.HasBaseType("RPGApp.Data.Card");
 
-                    b.Property<int?>("SessionId1")
-                        .HasColumnType("int")
-                        .HasColumnName("HeroCard_SessionId1");
-
-                    b.HasIndex("SessionId1");
+                    b.HasIndex("SessionId");
 
                     b.HasDiscriminator().HasValue("HeroCard");
                 });
@@ -407,17 +400,6 @@ namespace RPGApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RPGApp.Data.Card", b =>
-                {
-                    b.HasOne("RPGApp.Data.Session", "Session")
-                        .WithMany("Cards")
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Session");
-                });
-
             modelBuilder.Entity("RPGApp.Data.Note", b =>
                 {
                     b.HasOne("RPGApp.Data.Session", "Session")
@@ -442,23 +424,29 @@ namespace RPGApp.Data.Migrations
 
             modelBuilder.Entity("RPGApp.Data.BestiaryCard", b =>
                 {
-                    b.HasOne("RPGApp.Data.Session", null)
+                    b.HasOne("RPGApp.Data.Session", "Session")
                         .WithMany("BestiaryCards")
-                        .HasForeignKey("SessionId1");
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("RPGApp.Data.HeroCard", b =>
                 {
-                    b.HasOne("RPGApp.Data.Session", null)
+                    b.HasOne("RPGApp.Data.Session", "Session")
                         .WithMany("HeroCards")
-                        .HasForeignKey("SessionId1");
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("RPGApp.Data.Session", b =>
                 {
                     b.Navigation("BestiaryCards");
-
-                    b.Navigation("Cards");
 
                     b.Navigation("HeroCards");
 

@@ -8,6 +8,7 @@
         public User GameMaster { get; set; }
         public List<HeroCard> HeroCards { get; set; }
         public List<BestiaryCard> BestiaryCards { get; set; }
+        public List<Card> Cards { get; set; }
         public List<Note> Notes { get; set; }
     }
 }

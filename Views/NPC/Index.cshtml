@@ -1,0 +1,23 @@
+﻿@model ExpandedCardModel
+<a class="card-title text-white" href="#pageDown" style="font-size: 1.5em">Postacie NPC</a>
+<div id="AllMessages">
+
+    <div class="nav-item">
+        <a class="nav-link text-dark" asp-controller="NPC" asp-action="Create">
+            Utwórz nową notatkę
+        </a>
+    </div>
+
+    @for (int i = 0; i < Model.ListOfCards.Count; i++)
+    {
+        <div class="card" style="width: 90%;">
+            <div class="card-body">
+                <h5 class="card-title">@Model.ListOfCards[i].Title</h5>
+                <a class="card-subtitle mb-2 text-muted" href="../file/@Model.ListOfCards[i].CardPath" target="_blank">Otwórz PDF</a>
+                <p class="card-text">@Model.ListOfCards[i].Body</p>
+                <a href="#" class="card-link">Edytuj</a>
+                <a href="#" class="card-link">Usuń</a>
+            </div>
+        </div>
+    }
+</div>
