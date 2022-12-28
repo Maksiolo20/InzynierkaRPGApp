@@ -15,7 +15,6 @@ namespace RPGApp.Controllers
 		{
 			_card = card;
 			_mapper = mapper;
-			
 		}
         [HttpGet]
         public IActionResult Index()

@@ -1,0 +1,34 @@
+﻿@model ExpandedCardModel
+<script src="~/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+<form asp-controller="Beastiary" asp-action="CreateBeast" method="POST" enctype="multipart/form-data">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+    <!-- title input -->
+
+    <div class="form-outline mb-4">
+        <label class="form-label" asp-for="Card.Title">Nazwa Bestii</label>
+        <div>
+            <input asp-for="Card.Title" class="form-control" />
+            <span asp-validation-for="Card.Title" class="text-danger"></span>
+        </div>
+    </div>
+    <!-- body input -->
+    <div class="form-outline mb-4">
+        <label class="form-label" asp-for="Card.Body">Opis Bestii</label>
+        <div>
+            <textarea asp-for="Card.Body" class="form-control"></textarea>
+            <span asp-validation-for="Card.Body" class="text-danger"></span>
+        </div>
+    </div> 
+    <div>Dodaj PDF Bestii:</div>
+    <input type="file" name="file" />
+    <input type="submit" class="btn btn-primary" value="Utwórz!" />
+</form>
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea#body'
+        });
+    </script>
+}

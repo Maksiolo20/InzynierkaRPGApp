@@ -5,12 +5,12 @@ using System.Security.Claims;
 
 namespace RPGApp.Controllers
 {
-    public class HeroCardFileController : Controller
+    public class HeroController : Controller
     {
         Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnviroment = null;
 		private readonly ApplicationDbContext _context;
 		private string UserId;
-		public HeroCardFileController(Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnviroment, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+		public HeroController(Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnviroment, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
 			UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
