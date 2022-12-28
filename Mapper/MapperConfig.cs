@@ -9,6 +9,7 @@ namespace RPGApp.Mapper
         public MapperConfig()
         {
             CreateMap<Note, NoteViewModel>();
+            CreateMap<ManualTab, ManualTabViewModel>();
 			////CreateMap<Note, NoteModel>();
 		}
     }

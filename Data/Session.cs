@@ -8,5 +8,6 @@
         public User GameMaster { get; set; }
         public List<Card> Cards { get; set; }
         public List<Note> Notes { get; set; }
+        public List<ManualTab> Tabs { get; set; }
     }
 }

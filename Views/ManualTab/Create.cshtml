@@ -1,0 +1,36 @@
+﻿@model ManualTabViewModel
+<script src="~/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+<form asp-controller="ManualTab" asp-action="CreateManualTab" method="POST">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+    <div class="form-outline mb-4">
+        <label class="form-label" asp-for="Title">Nazwa Zakładki</label>
+        <div>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-outline mb-4">
+        <label class="form-label" asp-for="ManualURL">>Link do Podręcznika</label>
+        <div>
+            <input asp-for="ManualURL" class="form-control" />
+            <span asp-validation-for="ManualURL" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-outline mb-4">
+        <label class="form-label" asp-for="Body">Opis Zakładki</label>
+        <div>
+            <textarea asp-for="Body" class="form-control"></textarea>
+            <span asp-validation-for="Body" class="text-danger"></span>
+        </div>
+    </div>
+    <input type="Submit" class="btn btn-primary" value="Utwórz!" />
+</form>
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea#body'
+        });
+    </script>
+}
