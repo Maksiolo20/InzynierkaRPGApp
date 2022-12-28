@@ -10,12 +10,10 @@ namespace RPGApp.Controllers
 	public class BeastiaryController : Controller
 	{
         private readonly ICard _card;
-        private readonly IMapper _mapper;
         private ExpandedCardModel cardModel = new ExpandedCardModel();
         public BeastiaryController(ICard card, IMapper mapper)
 		{
             _card = card;
-            _mapper = mapper;
         }
 
         [HttpGet]

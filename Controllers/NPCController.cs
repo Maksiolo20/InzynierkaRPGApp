@@ -9,12 +9,10 @@ namespace RPGApp.Controllers
 	public class NPCController : Controller
 	{
 		private readonly ICard _card;
-		private readonly IMapper _mapper;
 		private ExpandedCardModel cardModel = new ExpandedCardModel();
 		public NPCController(ICard card, IMapper mapper)
 		{
 			_card = card;
-			_mapper = mapper;
 		}
         [HttpGet]
         public IActionResult Index()
