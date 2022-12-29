@@ -1,18 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model MapPath
 @{
+    ViewData["Title"] = "SelectedMap";
 }
+
+<h1>SelectedMap</h1>
+
 <div class="row mx-1" style="overflow: hidden">
     <div id="map" style="width: 100%; height: calc(100vh - 70px); position: relative;"></div>
 </div>
-<script>
-    var map = L.map('map', {
-        crs: L.CRS.Simple
-    });
+<script type="text/javascript">
+
+    var map = L.map('map',
+        { crs: L.CRS.Simple })
+        .setView([0, 0], 0);
+    //L.tileLayer('MapsExample/SampleMap/output/{z}/{x}/{y}.png').addTo(map);
     var bounds = [[0, 0], [1000, 1000]];
-    var image = L.imageOverlay('C:/Users/Miko/Documents/Visual 2022/RPGApp/Stored/Maps/282144131_554670852819311_6580231627707050922_n.jpg', bounds).addTo(map);
-    var sol = L.latLng([145, 175.2]);
-    L.marker(sol).addTo(map);
-    map.setView([70, 120], 1);
+    //var image = L.imageOverlay('https://localhost:7153/Maps/SampleMap.png').addTo(map););
+    var image = L.imageOverlay(@Model.Result).addTo(map););
+
+        //var map = L.map('map', {
+        //    crs: L.CRS.Simple
+        //});
+        //var bounds = [[0, 0], [1000, 1000]];
+        //var image = L.imageOverlay('C:/Users/Miko/Documents/Visual 2022/RPGApp/Stored/Maps/282144131_554670852819311_6580231627707050922_n.jpg', bounds).addTo(map);
+        //var sol = L.latLng([145, 175.2]);
+        //L.marker(sol).addTo(map);
+        //map.setView([70, 120], 1);
 </script>
+Class.cs

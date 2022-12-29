@@ -1,21 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using RPGApp.Data;
+using RPGApp.Interfaces;
+using RPGApp.Models;
 
 namespace RPGApp.Controllers
 {
     public class MapController : Controller
     {
-        private readonly IHttpContextAccessor _contextAccessor;
-        public MapController()
+        private readonly IMap _map;
+        public string HostURL { get; set; }
+        public MapController(IMap map)
         {
-
+            _map = map;
         }
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            MapViewModel model = _map.GetMaps();
+            return View(model);
         }
-        public IActionResult SelectedMap()
+
+        [HttpGet]
+        public async Task<IActionResult> SelectedMap(string path)
         {
-            return View();
+            MapPath viewModel = _map.GetMapPath(HostURL+path);
+            return View(viewModel);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Middlewere(string path)
+        {
+            return RedirectToAction("SelectedMap",path);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateMap(MapViewModel model, IFormFile file)
+        {
+            _map.AddMapToServer(model.AddedMap, file);
+            return RedirectToAction("Index");
         }
     }
 }

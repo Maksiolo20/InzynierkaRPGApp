@@ -12,6 +12,7 @@ namespace RPGApp.Data
 		public DbSet<Card> Cards { get; set; }
 		public DbSet<Note> Notes { get; set; }
 		public DbSet<ManualTab> Tabs { get; set; }
+		public DbSet<Map> Maps { get; set; }
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
@@ -31,7 +32,11 @@ namespace RPGApp.Data
 			    .HasMany(x => x.Cards)
 				.WithOne(x => x.Session)
 				.HasForeignKey(x => x.SessionId);
-			builder.Entity<Session>()
+            builder.Entity<Session>()
+				.HasMany(x => x.Maps)
+				.WithOne(x => x.Session)
+                .HasForeignKey(x => x.SessionId);
+            builder.Entity<Session>()
 				.HasMany(x => x.Tabs)
 			    .WithOne(x => x.Session)
 				.HasForeignKey(x => x.SessionId);

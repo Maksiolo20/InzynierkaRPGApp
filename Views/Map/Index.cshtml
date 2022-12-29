@@ -1,5 +1,28 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model MapViewModel
+<a class="card-title text-white" href="#pageDown" style="font-size: 1.5em">Mapy</a>
+<div id="AllMessages">
+
+    <div class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Map" asp-action="Create">
+            Dodaj Nową Mapę
+        </a>
+    </div>
+    @{
+        var MapList = Model.MapsInSession;
 }
+    @for (int i = 0; i < MapList.Count; i++)
+    {
+        <div class="card" style="width: 45%;">
+            <div class="card-body">
+                <h5 class="card-title">@MapList[i].Title</h5>
+                @if (MapList[i].MapPath != null)
+                {
+                    <a class="card-subtitle mb-2 text-muted" asp-controller="Map" asp-action="Middlewere" asp-route-path="@MapList[i].MapPath" target="_blank">Otwórz Mapę</a>
+                }
+                <p class="card-text">@MapList[i].Body</p>
+                <a href="#" class="card-link">Edytuj</a>
+                <a href="#" class="card-link">Usuń</a>
+            </div>
+        </div>
+    }
+</div>

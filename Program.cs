@@ -21,9 +21,10 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddScoped<INotebook, NotebookService>();
 builder.Services.AddScoped<ICard, CardService>();
 builder.Services.AddScoped<IManualTab, ManualTabService>();
+builder.Services.AddScoped<IMap, MapService>();
+//builder.Services.AddScoped<IServerURL, ServerURLService>();
 //builder.Services.AddScoped<IMapTiler,MapTilerService>();
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

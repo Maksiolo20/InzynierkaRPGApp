@@ -9,5 +9,6 @@
         public List<Card> Cards { get; set; }
         public List<Note> Notes { get; set; }
         public List<ManualTab> Tabs { get; set; }
+        public List<Map> Maps { get; set; }
     }
 }
