@@ -44,7 +44,7 @@ namespace RPGApp.Services
                     file.CopyTo(fileStream);
                     fileStream.Flush();
                 }
-                model.MapPath = $"s/{file.FileName}";
+                model.MapPath = $"Maps/{file.FileName}";
             }
             _context.Maps.Add(model);
             _context.SaveChanges();

@@ -20,7 +20,11 @@ namespace RPGApp.Controllers
             MapViewModel model = _map.GetMaps();
             return View(model);
         }
-
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
         [HttpGet]
         public async Task<IActionResult> SelectedMap(string path)
         {

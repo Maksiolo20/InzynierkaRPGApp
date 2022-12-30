@@ -9,7 +9,7 @@
     </div>
     @{
         var MapList = Model.MapsInSession;
-}
+    }
     @for (int i = 0; i < MapList.Count; i++)
     {
         <div class="card" style="width: 45%;">
@@ -17,7 +17,11 @@
                 <h5 class="card-title">@MapList[i].Title</h5>
                 @if (MapList[i].MapPath != null)
                 {
-                    <a class="card-subtitle mb-2 text-muted" asp-controller="Map" asp-action="Middlewere" asp-route-path="@MapList[i].MapPath" target="_blank">Otwórz Mapę</a>
+                    @*<a class="card-subtitle mb-2 text-muted" asp-controller="Map" asp-action="Middlewere" asp-route-path="@MapList[i].MapPath" target="_blank">Otwórz Mapę</a>*@
+                    <form action="@MapList[i].MapPath">
+                        <button class="btn btn-info">Otwórz Mapę</button>
+                    </form>
+
                 }
                 <p class="card-text">@MapList[i].Body</p>
                 <a href="#" class="card-link">Edytuj</a>
