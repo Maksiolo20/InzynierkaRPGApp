@@ -28,7 +28,7 @@ namespace RPGApp.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateChronologyNote(Note model)
+		public async Task<IActionResult> CreatePersonalNote(Note model)
 		{
 			model.ChosenNoteType = Note.NoteType.Personal;
 			_notebook.AddNoteToDatabase(model);

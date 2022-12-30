@@ -1,6 +1,6 @@
 ﻿@model NoteViewModel
 <script src="~/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
-<form asp-controller="Plot" asp-action="CreatePlotNote" method="POST">
+<form asp-controller="Personal" asp-action="CreatePersonalNote" method="POST">
 
     <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
 
@@ -22,7 +22,7 @@
             <span asp-validation-for="Body" class="text-danger"></span>
         </div>
     </div>
-    <input type="Submit" class="btn btn-primary" value="Utwórz!" />
+    <input type="Submit" class="btn btn-success" value="Utwórz!" />
 </form>
 @section Scripts{
     <script>

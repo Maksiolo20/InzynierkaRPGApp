@@ -6,7 +6,7 @@
 	List<Session> sessions = _context.Sessions.Where(x => x.GameMasterId == UserManager.GetUserAsync(User).Result.Id).ToList();
 	int CurrentSession = _context.Users.First(x => x.Id == UserManager.GetUserAsync(User).Result.Id).CurrentSessionId;
 }
-<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" asp-controller="Session" asp-action="ResetSession">
+<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" asp-controller="Session" asp-action="Index">
 	<svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
 	<span class="fs-4">Menu Sesji</span>
 
@@ -32,12 +32,6 @@
 	}
 	else
 	{
-		<li class="nav-item">
-			<a class="nav-link text-dark" asp-controller="Map" asp-action="Index">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-				Strona główna
-			</a>
-		</li>
 		<li>
 			<a class="nav-link text-dark" asp-controller="Hero" asp-action="Index">
 				<svg class="bi me-2" width="16" height="16"></svg>
@@ -84,6 +78,12 @@
 			<a class="nav-link text-dark" asp-controller="ManualTab" asp-action="Index">
 				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
 				Zakładki do podręczników
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-controller="Session" asp-action="ResetSession">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+				Powrót do Listy Sesji
 			</a>
 		</li>
 	}

@@ -3,14 +3,16 @@
 <div id="AllMessages">
 
     <div class="nav-item">
-        <a class="nav-link text-dark" asp-controller="NPC" asp-action="Create">
+        
+        <a class="btn btn-primary" asp-controller="NPC" asp-action="Create">
             Utwórz nową postać NPC
         </a>
     </div>
 
     @for (int i = 0; i < Model.ListOfCards.Count; i++)
     {
-        <div class="card" style="width: 45%;">
+
+        <div class="card my-5" style="width: 90%;">
             <div class="card-body">
                 <h5 class="card-title">@Model.ListOfCards[i].Title</h5>
                 @if(Model.ListOfCards[i].CardPath!=null)
