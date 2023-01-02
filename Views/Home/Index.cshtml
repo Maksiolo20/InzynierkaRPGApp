@@ -3,14 +3,18 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">@Model.BigText</h1>
-    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
-    @foreach (var item in Model.Text)
-    {
-        <div class="row mx-5 text-start h3">
-            <li>@item</li>
-        </div>
-    }
+@*#9ea6ff*@
 
+<div class="card my-4" style="margin: 2.5em 3%; border-radius:25px;">
+    <div class="card-header h1" style="text-align: center; box-sizing: border-box; text-transform: uppercase; background: rgb(158,166,255);
+background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 93%);   color:white; border-radius:25px 25px; padding:20px;">
+        @Model.BigText
+    </div>
+    <div class="card-body">
+        @*<h5 class="card-title h1"></h5>*@
+        @foreach (var item in Model.Text)
+        {
+            <li class="card-text h3 mx-5">@item</li>
+        }
+    </div>
 </div>
