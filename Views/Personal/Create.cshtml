@@ -4,8 +4,9 @@
 
     <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
 
-    <!-- title input -->
-
+    <div class="form-outline mb-4 h4">
+        Dodajesz nową notatkę. Jest ona przeznaczona do trzymania Twoich notatek osobistych na temat sesji. Nadaj jej nazwę, oraz dodaj treść.
+    </div>
     <div class="form-outline mb-4">
         <label class="form-label" asp-for="Title">Tytuł Notatki</label>
         <div>
@@ -13,7 +14,7 @@
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
-    <!-- body input -->
+
 
     <div class="form-outline mb-4">
         <label class="form-label" asp-for="Body">Treść Notatki</label>

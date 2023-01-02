@@ -4,8 +4,9 @@
 
     <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
 
-    <!-- title input -->
-
+    <div class ="form-outline mb-4 h4">
+        Dodajesz nowego bohatera. Jest to postać gracza. Nadaj nazwę, dodaj opis oraz plik w rozszerzeniu PDF z kartą postaci.
+    </div>
     <div class="form-outline mb-4">
         <label class="form-label" asp-for="Card.Title">Imię Bohatera</label>
         <div>
@@ -13,7 +14,6 @@
             <span asp-validation-for="Card.Title" class="text-danger"></span>
         </div>
     </div>
-    <!-- body input -->
     <div class="form-outline mb-4">
         <label class="form-label" asp-for="Card.Body">Opis Bohatera</label>
         <div>

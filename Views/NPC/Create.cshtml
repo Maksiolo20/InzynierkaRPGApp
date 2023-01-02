@@ -4,8 +4,9 @@
 
     <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
 
-    <!-- title input -->
-
+    <div class ="form-outline mb-4 h4">
+        Dodajesz nową postać NPC. Jest to niegrywalna postać ważna dla fabuły gry. Nadaj nazwę, dodaj opis oraz opcjonalnie plik w rozszerzeniu PDF z kartą postaci.
+    </div>
     <div class="form-outline mb-4">
         <label class="form-label" asp-for="Card.Title">Nazwa Postaci NPC</label>
         <div>
@@ -13,14 +14,13 @@
             <span asp-validation-for="Card.Title" class="text-danger"></span>
         </div>
     </div>
-    <!-- body input -->
     <div class="form-outline mb-4">
         <label class="form-label" asp-for="Card.Body">Opis Postaci</label>
         <div>
             <textarea asp-for="Card.Body" class="form-control"></textarea>
             <span asp-validation-for="Card.Body" class="text-danger"></span>
         </div>
-    </div> 
+    </div>
     <div>Dodaj PDF Karty Postaci:</div>
     <input type="file" name="file" />
     <input type="submit" class="btn btn-success" value="Utwórz!" />
