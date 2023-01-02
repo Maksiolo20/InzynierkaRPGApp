@@ -52,3 +52,6 @@ navbar-brand {
     font-size: 40px;
     letter-spacing:1px;
 }
+title {
+    vertical-align: middle;
+}
