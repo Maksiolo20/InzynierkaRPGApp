@@ -55,3 +55,12 @@ navbar-brand {
 title {
     vertical-align: middle;
 }
+a.btn-primary {
+    background-color: rgb(102, 102, 255);
+}
+button.btn-info {
+    background-color: rgb(204, 255, 255);
+}
+input.btn-success {
+    background-color: rgb(102, 102, 255);
+}
