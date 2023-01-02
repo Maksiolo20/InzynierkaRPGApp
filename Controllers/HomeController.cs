@@ -28,14 +28,17 @@ namespace RPGApp.Controllers
             HomeModel model = new HomeModel();
             if (_signInManager.IsSignedIn(User))
             {
-                int CurrentSession = _context.Users.First(x => x.Id == _userManager.GetUserAsync(User).Result.Id).CurrentSessionId;
-                if (CurrentSession == 0)
+                int currentSession = _context.Users.First(x => x.Id == _userManager.GetUserAsync(User).Result.Id).CurrentSessionId;
+                //string? chosenSessionName = ;
+                if (currentSession == 0)
                 {
+                    model.BigText = "Zalogowano";
                     model.Text.Add(new string("W RPGApp możesz trzymać wiele sesji gier. Każda z nich przechowuje swoje dane"));
                     model.Text.Add(new string("Utwórz nową sesję gry lub wybierz jedną z wcześniej stworzonych"));
                 }
                 else 
                 {
+                    model.BigText = $"Wybrano sesję: {_context.Sessions.FirstOrDefault(x => x.Id == currentSession).Name}";
                     model.Text.Add(new string("Przechowuj karty postaci oraz informacje o bohaterach, przeciwnikach oraz postaciach NPC w zakładkach Bohaterowie, Bestiariusz oraz Postacie NPC"));
                     model.Text.Add(new string("Twórz i otwieraj zapisane mapy w zakładce Mapy Świata"));
                     model.Text.Add(new string("Trzymaj swoje notatki w uporządkowany sposób w wcześniej przygotowanych zakładkach Notatnik Chronologii, Fabularny oraz Osobisty"));
@@ -44,6 +47,7 @@ namespace RPGApp.Controllers
             }
             else
             {
+                model.BigText = "Witaj";
                 model.Text.Add(new string("RPGApp to aplikacja pomagająca Mistrzowi Gry w przeprowadzaniu sesji gier RPG. Umożliwia przechowywanie i modyfikcaję informacji takich jak karty postaci, notatki oraz mapy"));
                 model.Text.Add(new string("Zaloguj się lub zarejestruj nowe konto, by skorzystać z aplikacji"));
             }
