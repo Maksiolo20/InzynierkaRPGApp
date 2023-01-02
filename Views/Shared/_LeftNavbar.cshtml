@@ -6,7 +6,7 @@
 	List<Session> sessions = _context.Sessions.Where(x => x.GameMasterId == UserManager.GetUserAsync(User).Result.Id).ToList();
 	int CurrentSession = _context.Users.First(x => x.Id == UserManager.GetUserAsync(User).Result.Id).CurrentSessionId;
 }
-<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" asp-controller="Session" asp-action="Index">
+<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" asp-controller="Home" asp-action="Index">
 	<svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
 	<span class="fs-4">Menu Sesji</span>
 
