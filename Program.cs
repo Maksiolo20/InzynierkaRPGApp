@@ -22,6 +22,7 @@ builder.Services.AddScoped<INotebook, NotebookService>();
 builder.Services.AddScoped<ICard, CardService>();
 builder.Services.AddScoped<IManualTab, ManualTabService>();
 builder.Services.AddScoped<IMap, MapService>();
+builder.Services.AddScoped<IHome, HomeService>();
 //builder.Services.AddScoped<IServerURL, ServerURLService>();
 //builder.Services.AddScoped<IMapTiler,MapTilerService>();
 var app = builder.Build();

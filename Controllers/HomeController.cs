@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RPGApp.Data;
+using RPGApp.Interfaces;
 using RPGApp.Models;
 using System.Diagnostics;
 
@@ -11,16 +12,18 @@ namespace RPGApp.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IHome _home;
 
 
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager, UserManager<User> userManager, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager, UserManager<User> userManager, ApplicationDbContext context, IHome home)
         {
             _logger = logger;
             _signInManager = signInManager; 
             _userManager = userManager;
             _context = context;
+            _home=home;
         }
 
         public IActionResult Index()
@@ -43,6 +46,16 @@ namespace RPGApp.Controllers
                     model.Text.Add(new string("Twórz i otwieraj zapisane mapy w zakładce Mapy Świata"));
                     model.Text.Add(new string("Trzymaj swoje notatki w uporządkowany sposób w wcześniej przygotowanych zakładkach Notatnik Chronologii, Fabularny oraz Osobisty"));
                     model.Text.Add(new string("Twórz skróty do podręczników w Zakładce do Podręczników"));
+
+                    model.Maps = _home.GetMaps(currentSession);
+                    model.HeroCards = _home.GetCardsByType(Card.CardType.HeroCardFiles, currentSession);
+                    model.BeastiaryCards = _home.GetCardsByType(Card.CardType.BestiaryCardFiles, currentSession);
+                    model.NPCCards = _home.GetCardsByType(Card.CardType.NPCCardFiles, currentSession);
+                    model.ChronologyNotes = _home.GetNotebooksByType("Chronology", currentSession);
+                    model.PersonalNotes = _home.GetNotebooksByType("Personal", currentSession);
+                    model.PlotNotes = _home.GetNotebooksByType("Plot", currentSession);
+                    model.ManualTab = _home.GetTabs(currentSession);
+
                 }
             }
             else

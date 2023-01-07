@@ -2,7 +2,32 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    a {
+        class: h2;
+        color: Black;
+    }
 
+        a:link {
+            text-decoration: none;
+            color: Black;
+        }
+
+        a:visited {
+            text-decoration: none;
+            color: Black;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: Black;
+        }
+
+        a:active {
+            text-decoration: none;
+            color: Black;
+        }
+</style>
 @*#9ea6ff*@
 
 <div class="card my-4" style="margin: 2.5em 3%; border-radius:25px;">
@@ -17,4 +42,144 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
             <li class="card-text h3 mx-5">@item</li>
         }
     </div>
+</div>
+
+<div class="container">
+    <h2>Podgląd Elementów Sesji:</h2>
+
+    @if (Model.HeroCards.Count != null && Model.HeroCards.Count != 0)
+    {
+        <a class="h3" color="black" asp-controller="Hero" asp-action="Index">Bohaterowie</a>
+        <div class="row">
+            @for (int i = 0; i < Model.HeroCards.Count; i++)
+            {
+                <div class="card my-4 col-sm" style="width: 90%;">
+                    <div class="card-body ">
+                        <h5 class="card-title">@Model.HeroCards[i].Title</h5>
+                        @if (Model.HeroCards[i].CardPath != null)
+                        {
+                            <a class="card-subtitle mb-2 text-muted" href="../NPCCardFiles/@Model.HeroCards[i].CardPath" target="_blank">Otwórz Kartę Bohatera</a>
+                        }
+                        <p class="card-text">@Model.HeroCards[i].Body</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+
+    @if (Model.BeastiaryCards.Count != null && Model.BeastiaryCards.Count != 0)
+    {
+        <a class="h3" asp-controller="Beastiary" asp-action="Index">Bestiariusz</a>
+        <div class="row">
+            @for (int i = 0; i < Model.BeastiaryCards.Count; i++)
+            {
+                <div class="card my-4 col-sm" style="width: 90%;">
+                    <div class="card-body ">
+                        <h5 class="card-title">@Model.BeastiaryCards[i].Title</h5>
+                        @if (Model.BeastiaryCards[i].CardPath != null)
+                        {
+                            <a class="card-subtitle mb-2 text-muted" href="../NPCCardFiles/@Model.BeastiaryCards[i].CardPath" target="_blank">Otwórz Kartę Bohatera</a>
+                        }
+                        <p class="card-text">@Model.BeastiaryCards[i].Body</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    @{
+        var MapList = Model.Maps.MapsInSession;
+    }
+
+    @if (MapList.Count != null && MapList.Count != 0)
+    {
+        <a class="h3" asp-controller="Map" asp-action="Index">Mapy</a>
+
+        <div class="row">
+            @for (int i = 0; i < MapList.Count; i++)
+            {
+                <div class="card my-4 col-sm" style="width: 90%;">
+                    <div class="card-body">
+                        <h5 class="card-title">@MapList[i].Title</h5>
+                        @if (MapList[i].MapPath != null)
+                        {
+                            <form action="@MapList[i].MapPath">
+                                <button class="btn btn-info">Otwórz Mapę</button>
+                            </form>
+                        }
+                        <p class="card-text">@MapList[i].Body</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    @if (Model.ChronologyNotes.Count != null && Model.ChronologyNotes.Count != 0)
+    {
+        <a class="h3" asp-controller="Chronology" asp-action="Index">Notatki Chronologiczne</a>
+        <div class="row">
+            @for (int i = 0; i < Model.ChronologyNotes.Count; i++)
+            {
+                <div class="card my-4 col-sm" style="width: 90%;">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.ChronologyNotes[i].Title</h5>
+                        <p class="card-text">@Model.ChronologyNotes[i].Body</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    @if (Model.PlotNotes.Count != null && Model.PlotNotes.Count != 0)
+    {
+        <a class="h3" asp-controller="Plot" asp-action="Index">Notatki Fabularne</a>
+        <div class="row">
+            @for (int i = 0; i < Model.PlotNotes.Count; i++)
+            {
+                <div class="card my-4 col-sm" style="width: 90%;">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.PlotNotes[i].Title</h5>
+                        <p class="card-text">@Model.PlotNotes[i].Body</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    @if (Model.PersonalNotes.Count != null && Model.PersonalNotes.Count != 0)
+    {
+        <a class="h3" asp-controller="Personal" asp-action="Index">Notatki Osobiste</a>
+        <div class="row">
+            @for (int i = 0; i < Model.PersonalNotes.Count; i++)
+            {
+                <div class="card my-4 col-sm" style="width: 90%;">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.PersonalNotes[i].Title</h5>
+                        <p class="card-text">@Model.PersonalNotes[i].Body</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    @if (Model.ManualTab.Count != null && Model.ManualTab.Count != 0)
+    {
+        <a class="h3" asp-controller="ManualTab" asp-action="Index">Zakładki</a>
+        <div class="row">
+            @for (int i = 0; i < Model.ManualTab.Count; i++)
+            {
+                <div class="card my-4" style="width: 90%;">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.ManualTab[i].Title</h5>
+                        @if (Model.ManualTab[i].ManualURL != null)
+                        {
+                            <a href="@Model.ManualTab[i].ManualURL" target="_blank" class="card-title">Otwórz link (@Model.ManualTab[i].ManualURL)</a>
+                        }
+                        <p class="card-text">@Model.ManualTab[i].Body</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
 </div>
