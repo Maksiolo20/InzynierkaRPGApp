@@ -40,6 +40,8 @@ namespace RPGApp.Data
 				.HasMany(x => x.Tabs)
 			    .WithOne(x => x.Session)
 				.HasForeignKey(x => x.SessionId);
-		}
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "GameMaster", NormalizedName = "GameMaster".ToUpper() });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Player", NormalizedName = "Player".ToUpper() });
+        }
 	}
 }

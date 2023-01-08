@@ -41,6 +41,7 @@ namespace RPGApp.Controllers
                 }
                 else 
                 {
+                    model.ShowSessionDetails=true;
                     model.BigText = $"Wybrano sesję: {_context.Sessions.FirstOrDefault(x => x.Id == currentSession).Name}";
                     model.Text.Add(new string("Przechowuj karty postaci oraz informacje o bohaterach, przeciwnikach oraz postaciach NPC w zakładkach Bohaterowie, Bestiariusz oraz Postacie NPC"));
                     model.Text.Add(new string("Twórz i otwieraj zapisane mapy w zakładce Mapy Świata"));

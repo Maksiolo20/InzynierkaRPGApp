@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Humanizer;
 using Microsoft.AspNetCore.Http;
 using RPGApp.Data;
 using RPGApp.Interfaces;

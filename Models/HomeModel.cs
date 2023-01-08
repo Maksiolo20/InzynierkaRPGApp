@@ -14,6 +14,6 @@ namespace RPGApp.Models
         public List<NoteViewModel>? PlotNotes { get; set; }
         public List<NoteViewModel>? PersonalNotes { get; set; }
         public List<ManualTabViewModel>? ManualTab { get; set; }
-
+        public bool ShowSessionDetails { get; set; }
     }
 }
