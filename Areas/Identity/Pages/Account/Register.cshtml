@@ -3,8 +3,7 @@
 @inject ApplicationDbContext _context
 @{
     ViewData["Title"] = "Register";
-    int selectedValue = 0;
-    SelectList List = new SelectList(Model.RoleList, "Id", "CharacterName", selectedValue);
+    SelectList List = new SelectList(Model.RoleList,"RoleName");
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -31,10 +30,10 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-inline my-3">
-                <label asp-for="Input.RoleId" class="control-label mr-5 ml-2 my-3"></label>
+                <label asp-for="@Model.RoleList" class="control-label mr-5 ml-2 my-3"></label>
                 <select asp-items="@(List)"
-                        class="form-control" asp-for="Input.RoleId">
-                    <option value="wybierz">---Wybierz---</option>
+                        class="form-control" asp-for="Input.RoleName">
+                    <option value="wybierz">Wybierz Rolę</option>
                 </select>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>

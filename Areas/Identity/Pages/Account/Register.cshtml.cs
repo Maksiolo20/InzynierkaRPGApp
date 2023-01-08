@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using RPGApp.Data;
+using RPGApp.Models;
 
 namespace RPGApp.Areas.Identity.Pages.Account
 {
@@ -47,7 +48,10 @@ namespace RPGApp.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _context= context;
-            RoleList = _context.UserRoles.Select(x=>x.RoleId).ToList();
+            foreach (var item in _context.Roles.ToList())
+            {
+                RoleList.Add(new string(item.Name));
+            }
         }
         public List<string> RoleList = new();
         /// <summary>
@@ -106,7 +110,7 @@ namespace RPGApp.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "Wybierz Rolę")]
-            public string RoleId { get; set; }
+            public string RoleName { get; set; }
         }
 
 
@@ -126,15 +130,16 @@ namespace RPGApp.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, Input.RoleName);
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //dodaj rolę
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
