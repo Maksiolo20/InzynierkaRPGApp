@@ -47,6 +47,7 @@ namespace RPGApp.Controllers
                     model.Text.Add(new string("Twórz i otwieraj zapisane mapy w zakładce Mapy Świata"));
                     model.Text.Add(new string("Trzymaj swoje notatki w uporządkowany sposób w wcześniej przygotowanych zakładkach Notatnik Chronologii, Fabularny oraz Osobisty"));
                     model.Text.Add(new string("Twórz skróty do podręczników w Zakładce do Podręczników"));
+                    model.Text.Add(new string("Dodawaj graczy do sesji, by mieli wgląd w swoje karty postaci oraz mapy"));
 
                     model.Maps = _home.GetMaps(currentSession);
                     model.HeroCards = _home.GetCardsByType(Card.CardType.HeroCardFiles, currentSession);

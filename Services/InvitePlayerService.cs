@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RPGApp.Data;
+using RPGApp.Interfaces;
 using RPGApp.Models;
 using System.Security.Claims;
 
 namespace RPGApp.Services
 {
-	public class InvitePlayerService
+	public class InvitePlayerService :IPlayer
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly IHttpContextAccessor _httpContextAccessor;
@@ -27,10 +28,12 @@ namespace RPGApp.Services
 			}
 			return result;
 		}
-		public void AddPlayer(string player,int sessionId) 
+		public void AddPlayer(string player)
 		{
+			int sessionId = _context.Users.First(x => x.Id == UserId).CurrentSessionId;
 			var result = _context.Sessions.SingleOrDefault(x => x.Id == sessionId);
-			if (result != null)
+			bool doesPlayerExists = _context.Users.Any(x => x.Email == player);
+			if (doesPlayerExists)
 			{
 				result.Players.Add(player);
 				_context.SaveChanges();
