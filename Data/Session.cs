@@ -10,5 +10,6 @@
         public List<Note> Notes { get; set; }
         public List<ManualTab> Tabs { get; set; }
         public List<Map> Maps { get; set; }
+        public List<string> Players { get; set; }
     }
 }
