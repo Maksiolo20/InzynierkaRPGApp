@@ -1,8 +1,10 @@
-﻿namespace RPGApp.Interfaces
+﻿using RPGApp.Models;
+
+namespace RPGApp.Interfaces
 {
 	public interface IPlayer
 	{
-		List<string> GetPlayers();
-		void AddPlayer(string player);
+		List<PlayerModel> GetPlayers();
+		void AddPlayer(PlayerViewModel Player);
 	}
 }

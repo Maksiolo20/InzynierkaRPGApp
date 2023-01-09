@@ -16,8 +16,9 @@ namespace RPGApp.Controllers
 		[HttpGet]
 		public IActionResult Index()
 		{
-			List<string> playerList = _player.GetPlayers();
-			return View(playerList);
+			PlayerViewModel model = new PlayerViewModel();
+			model.PlayerNameList = _player.GetPlayers();
+			return View(model);
 		}
 		[HttpGet]
 		public async Task<IActionResult> Create()
@@ -25,9 +26,9 @@ namespace RPGApp.Controllers
 			return View();
 		}
 		[HttpPost]
-		public async Task<IActionResult> AddPlayerToSession(string playerName)
+		public async Task<IActionResult> AddPlayerToSession(PlayerViewModel Player)
 		{
-			_player.AddPlayer(playerName);
+			_player.AddPlayer(Player);
 			return RedirectToAction("Index");
 		}
 	}

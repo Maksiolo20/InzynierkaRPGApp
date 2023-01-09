@@ -5,6 +5,6 @@ namespace RPGApp.Data
     public class User : IdentityUser
     {
         public int CurrentSessionId { get; set; }
-        public IEnumerable<Session> Sessions{ get; set; }
+        public virtual IEnumerable<UserSession> Sessions{ get; set; }
     }
 }

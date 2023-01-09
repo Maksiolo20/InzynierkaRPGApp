@@ -1,0 +1,19 @@
+﻿@model PlayerViewModel
+    <h2 class="card-title" style="font-size: 1.5em">Lista Dodanych Graczy</h2>
+    <div id="AllMessages">
+
+    <div class="nav-item">
+        <a class="btn btn-primary" asp-controller="InvitePlayer" asp-action="Create">
+            Dodaj Gracza
+        </a>
+    </div>
+
+        @for (int i = 0; i < Model.PlayerNameList.Count; i++)
+        {
+        <div class="card my-4" style="width: 90%;">
+            <div class="card-body">
+                <h5 class="card-title">@Model.PlayerNameList[i]</h5>
+            </div>
+        </div>
+        }
+    </div>

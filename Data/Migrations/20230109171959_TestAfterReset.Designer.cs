@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RPGApp.Data;
 
@@ -11,9 +12,10 @@ using RPGApp.Data;
 namespace RPGApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230109171959_TestAfterReset")]
+    partial class TestAfterReset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace RPGApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "edd7bb4a-46c2-487c-aaa3-ff7efe0b5ace",
-                            ConcurrencyStamp = "8fad8932-2937-4b41-a002-87b4c9e2dfce",
+                            Id = "af403712-d7a3-47c3-92d5-9ef7c55ddb07",
+                            ConcurrencyStamp = "c8239a93-ac73-459a-aa09-210e86a5fadd",
                             Name = "GameMaster",
                             NormalizedName = "GAMEMASTER"
                         },
                         new
                         {
-                            Id = "c624adf5-4d19-45ea-9b52-29f1a4484f17",
-                            ConcurrencyStamp = "c7a285a3-e8e9-41a0-a391-c97b73d05f71",
+                            Id = "7bfd2c7e-c311-4ba9-854b-2fac2f0590a5",
+                            ConcurrencyStamp = "edf6112a-6ab6-4e08-bad6-8fce70269b81",
                             Name = "Player",
                             NormalizedName = "PLAYER"
                         });

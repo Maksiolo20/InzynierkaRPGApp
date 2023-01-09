@@ -24,7 +24,9 @@ namespace RPGApp.Controllers
 		public async Task<IActionResult> CreateSession(Session model)
 		{
 			User user = _manager.GetUserAsync(HttpContext.User).Result;
-			model.GameMaster = user;
+            model.GameMasterId = user.Id;
+            model.Users = new();
+			model.Users.Add(new UserSession() { User=user});
 			_context.Add(model);
 			_context.SaveChanges();
 			return RedirectToAction("Index");

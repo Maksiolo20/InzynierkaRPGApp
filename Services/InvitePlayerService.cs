@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RPGApp.Data;
+using RPGApp.Data.Migrations;
 using RPGApp.Interfaces;
 using RPGApp.Models;
+using System.Linq;
 using System.Security.Claims;
 
 namespace RPGApp.Services
@@ -11,34 +14,44 @@ namespace RPGApp.Services
 		private readonly ApplicationDbContext _context;
 		private readonly IHttpContextAccessor _httpContextAccessor;
 		private string UserId;
-		public InvitePlayerService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+
+
+        public InvitePlayerService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
 		{
 			_context=context;
 			_httpContextAccessor=httpContextAccessor;
 			UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 		}
-		public List<string> GetPlayers()
+		public List<PlayerModel> GetPlayers()
 		{
-			List<string> result = new List<string>();
+			List<PlayerModel> result = new List<PlayerModel>();
 			var currentSessionId = _context.Users.First(x => x.Id == UserId).CurrentSessionId;
-			var sessionToGet = _context.Sessions.SingleOrDefault(x => x.Id == currentSessionId);
-			foreach (var item in sessionToGet.Players)
+			var sessionToGet = _context.Sessions.First(x => x.Id == currentSessionId);
+			var GameMasterRoleId = _context.Roles
+				.First(x => x.Name == "GameMaster").Id;
+			
+            if (_context.UserSessions.Where(x => x.SessionIdsFK == currentSessionId).Count()>1)
 			{
-				result.Add(item);
+				List<string>? Players = _context.UserRoles.Where(x => x.RoleId != GameMasterRoleId).Select(x => x.UserId).Intersect(sessionToGet.Users.Select(x => x.UserIdsFK)).ToList();
+				foreach (var item in Players)
+				{
+					result.Add(new PlayerModel()
+					{
+						PlayerId = item,
+						PlayerName = _context.Users.First(x => x.Id == item).UserName
+					});
+				}
 			}
 			return result;
 		}
-		public void AddPlayer(string player)
+        public void AddPlayer(PlayerViewModel Player)
 		{
-			int sessionId = _context.Users.First(x => x.Id == UserId).CurrentSessionId;
-			var result = _context.Sessions.SingleOrDefault(x => x.Id == sessionId);
-			bool doesPlayerExists = _context.Users.Any(x => x.Email == player);
-			if (doesPlayerExists)
-			{
-				result.Players.Add(player);
-				_context.SaveChanges();
-			}
-		}
+                UserSession player = new UserSession();
+                player.SessionIdsFK = _context.Users.First(x => x.Id == UserId).CurrentSessionId;
+                player.UserIdsFK = Player.Player.Id;
+                _context.UserSessions.Add(player);
+                _context.SaveChanges();
+        }
 
 	}
 }

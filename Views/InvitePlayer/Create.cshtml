@@ -1,0 +1,25 @@
+﻿@model PlayerViewModel
+<script src="~/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+<form asp-controller="InvitePlayer" asp-action="AddPlayerToSession" method="POST">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+    <div class="form-outline mb-4 h4">
+        Dodajesz gracza do tej sesji. Wpisz jego adres email. Gracz będzie miał wgląd do wszystkich kart bohaterów oraz do map.
+    </div>
+@*    <div class="form-outline mb-4">
+        <label class="form-label" asp-for="">email gracza</label>
+        <div>
+            <input asp-for="" class="form-control" />
+            <span asp-validation-for="" class="text-danger"></span>
+        </div>
+    </div>*@
+    <input type="Submit" class="btn btn-success" value="Utwórz!" />
+</form>
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea#body'
+        });
+    </script>
+}
