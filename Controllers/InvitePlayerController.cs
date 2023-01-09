@@ -8,7 +8,7 @@ namespace RPGApp.Controllers
 	public class InvitePlayerController : Controller
 	{
 		private readonly IPlayer _player;
-
+		public PlayerViewModel model { get; set; } = new PlayerViewModel();
 		public InvitePlayerController(IPlayer player)
 		{
 			_player= player;
@@ -16,14 +16,14 @@ namespace RPGApp.Controllers
 		[HttpGet]
 		public IActionResult Index()
 		{
-			PlayerViewModel model = new PlayerViewModel();
 			model.PlayerNameList = _player.GetPlayers();
 			return View(model);
 		}
 		[HttpGet]
 		public async Task<IActionResult> Create()
 		{
-			return View();
+			model = _player.GetPlayersEligibleToJoin();
+			return View(model);
 		}
 		[HttpPost]
 		public async Task<IActionResult> AddPlayerToSession(PlayerViewModel Player)

@@ -1,4 +1,7 @@
 ﻿@model PlayerViewModel
+@{
+    SelectList List = new SelectList(Model.PlayerNameList, "PlayerId", "PlayerName");
+}
 <script src="~/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
 <form asp-controller="InvitePlayer" asp-action="AddPlayerToSession" method="POST">
 
@@ -7,19 +10,29 @@
     <div class="form-outline mb-4 h4">
         Dodajesz gracza do tej sesji. Wpisz jego adres email. Gracz będzie miał wgląd do wszystkich kart bohaterów oraz do map.
     </div>
-@*    <div class="form-outline mb-4">
-        <label class="form-label" asp-for="">email gracza</label>
-        <div>
-            <input asp-for="" class="form-control" />
-            <span asp-validation-for="" class="text-danger"></span>
+    @*    <div class="form-outline mb-4">
+    <label class="form-label" asp-for="">email gracza</label>
+    <div>
+    <input asp-for="" class="form-control" />
+    <span asp-validation-for="" class="text-danger"></span>
+    </div>
+    </div>*@
+   @* <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Wybierz Gracza
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (var item in Model.PlayerNameList)
+            {
+                <a class="dropdown-item" asp-for="@item.PlayerName">@item.PlayerName</a>
+            }
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
         </div>
     </div>*@
+    <select class="form-select" aria-label="Default select example" asp-items="@(List)" asp-for="Player">
+        <option selected>Wybierz Gracza</option>
+    </select>
     <input type="Submit" class="btn btn-success" value="Utwórz!" />
 </form>
-@section Scripts{
-    <script>
-        tinymce.init({
-            selector: 'textarea#body'
-        });
-    </script>
-}
