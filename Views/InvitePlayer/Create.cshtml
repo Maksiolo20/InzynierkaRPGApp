@@ -1,6 +1,6 @@
 ﻿@model PlayerViewModel
 @{
-    SelectList List = new SelectList(Model.PlayerNameList, "PlayerId", "PlayerName");
+    SelectList List = new SelectList(Model.PlayerNameList,"PlayerId" ,"PlayerName");
 }
 <script src="~/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
 <form asp-controller="InvitePlayer" asp-action="AddPlayerToSession" method="POST">
@@ -31,7 +31,7 @@
             <a class="dropdown-item" href="#">Something else here</a>
         </div>
     </div>*@
-    <select class="form-select" aria-label="Default select example" asp-items="@(List)" asp-for="Player">
+    <select class="form-select" aria-label="Default select example" asp-items="@(List)" asp-for="PlayerName">
         <option selected>Wybierz Gracza</option>
     </select>
     <input type="Submit" class="btn btn-success" value="Utwórz!" />

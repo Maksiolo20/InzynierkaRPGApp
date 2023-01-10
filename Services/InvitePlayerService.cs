@@ -33,13 +33,14 @@ namespace RPGApp.Services
 
             if (_context.UserSessions.Where(x => x.SessionIdsFK == currentSessionId).Count() > 1)
             {
-                List<string>? Players = _context.UserRoles.Where(x => x.RoleId != GameMasterRoleId).Select(x => x.UserId).Intersect(sessionToGet.Users.Select(x => x.UserIdsFK)).ToList();
+                List<User>? Players = _context.UserSessions.Where(x => x.SessionIdsFK == currentSessionId).Select(x => x.User).ToList();
+                //.Intersect(sessionToGet.Users.Select(x => x.UserIdsFK))
                 foreach (var item in Players)
                 {
                     result.Add(new PlayerModel()
                     {
-                        PlayerId = item,
-                        PlayerName = _context.Users.First(x => x.Id == item).UserName
+                        PlayerId = item.Id,
+                        PlayerName = item.UserName
                     });
                 }
             }
@@ -56,35 +57,26 @@ namespace RPGApp.Services
 
             //if (_context.UserSessions.Where(x => x.SessionIdsFK == currentSessionId).Count() > 1)
             //{
-            bool flag = false;
-            List<string>? Players = new List<string>();
-            if (_context.UserSessions.Where(x => x.SessionIdsFK == currentSessionId).Count() > 1)
-                flag = true;
-            if (flag)
-            {
-                Players = _context.UserRoles.Where(x => x.RoleId != GameMasterRoleId).Select(x => x.UserId).Except(sessionToGet.Users.Select(x => x.UserIdsFK)).ToList();
-            }
-            else
-            {
-                Players = _context.UserRoles.Where(x => x.RoleId != GameMasterRoleId).Select(x => x.UserId).ToList();
-            }
+            List<User>? Players = new List<User>();
+            Players = _context.Users.Except(_context.UserSessions.Where(x => x.SessionIdsFK == currentSessionId).Select(x => x.User)).ToList();
+
             foreach (var item in Players)
             {
                 result.PlayerNameList.Add(new PlayerModel()
                 {
-                    PlayerId = item,
-                    PlayerName = _context.Users.First(x => x.Id == item).UserName
+                    PlayerId = item.Id,
+                    PlayerName = item.UserName
                 });
             }
             return result;
         }
 
         [HttpPost]
-        public void AddPlayer(PlayerViewModel Player)
+        public void AddPlayer(string playeId)
         {
             UserSession player = new UserSession();
             player.SessionIdsFK = _context.Users.First(x => x.Id == UserId).CurrentSessionId;
-            player.UserIdsFK = Player.Player.Id;
+            player.UserIdsFK = playeId;
             _context.UserSessions.Add(player);
             _context.SaveChanges();
         }

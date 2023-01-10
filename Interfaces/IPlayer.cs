@@ -6,6 +6,6 @@ namespace RPGApp.Interfaces
 	{
 		List<PlayerModel> GetPlayers();
         PlayerViewModel GetPlayersEligibleToJoin();
-		void AddPlayer(PlayerViewModel Player);
+		void AddPlayer(string playerName);
 	}
 }

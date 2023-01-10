@@ -26,9 +26,9 @@ namespace RPGApp.Controllers
 			return View(model);
 		}
 		[HttpPost]
-		public async Task<IActionResult> AddPlayerToSession(PlayerViewModel Player)
+		public async Task<IActionResult> AddPlayerToSession(PlayerViewModel NewPlayer)
 		{
-			_player.AddPlayer(Player);
+			_player.AddPlayer(NewPlayer.PlayerName);
 			return RedirectToAction("Index");
 		}
 	}
