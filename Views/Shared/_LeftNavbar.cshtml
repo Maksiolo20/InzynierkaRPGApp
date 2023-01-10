@@ -3,7 +3,9 @@
 @inject ApplicationDbContext _context
 @inject UserManager<User> UserManager
 @{
-	List<Session> sessions = _context.Sessions.Where(x => x.GameMasterId == UserManager.GetUserAsync(User).Result.Id).ToList();
+	string userId = UserManager.GetUserAsync(User).Result.Id;
+	List<Session> sessions = _context.Sessions.Where(x => x.GameMasterId == userId).ToList();
+	List<Session> sessionsForPlayer = _context.UserSessions.Where(x => x.UserIdsFK == userId).Select(x=>x.Session).ToList();
 	int CurrentSession = _context.Users.First(x => x.Id == UserManager.GetUserAsync(User).Result.Id).CurrentSessionId;
 }
 <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" asp-controller="Home" asp-action="Index">
@@ -15,20 +17,35 @@
 <ul class="nav nav-pills flex-column mb-auto">
 	@if (CurrentSession == 0)
 	{
-		@foreach (var item in sessions)
+		if (User.IsInRole("Player"))
 		{
+			@foreach (var item in sessionsForPlayer)
+			{
+				<li class="nav-item">
+					<a class="nav-link text-dark" asp-route-id="@item.Id" asp-controller="Session" asp-action="ChangeSession">
+						<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+						@item.Name
+					</a>
+				</li>
+			}
+		}
+		else
+		{
+			@foreach (var item in sessions)
+			{
+				<li class="nav-item">
+					<a class="nav-link text-dark" asp-route-id="@item.Id" asp-controller="Session" asp-action="ChangeSession">
+						<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+						@item.Name</a>
+				</li>
+			}
 			<li class="nav-item">
-				<a class="nav-link text-dark" asp-route-id="@item.Id" asp-controller="Session" asp-action="ChangeSession">
+				<a class="nav-link text-dark" asp-controller="SessionCreator">
 					<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-					@item.Name</a>
+					Utwórz nową sesję
+				</a>
 			</li>
 		}
-		<li class="nav-item">
-			<a class="nav-link text-dark" asp-controller="SessionCreator">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-				Utwórz nową sesję
-			</a>
-		</li>
 	}
 	else
 	{
@@ -38,54 +55,60 @@
 				Bohaterowie
 			</a>
 		</li>
-		<li>
-			<a class="nav-link text-dark" asp-controller="Beastiary" asp-action="Index">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-				Bestiariusz
-			</a>
-		</li>
+		if (User.IsInRole("GameMaster"))
+		{
+			<li>
+				<a class="nav-link text-dark" asp-controller="Beastiary" asp-action="Index">
+					<svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+					Bestiariusz
+				</a>
+			</li>
+		}
 		<li>
 			<a class="nav-link text-dark" asp-controller="Map" asp-action="Index">
 				<svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
 				Mapy Świata
 			</a>
 		</li>
-		<li>
-			<a class="nav-link text-dark" asp-controller="Chronology" asp-action="Index">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-				Notatnik Chronologii
-			</a>
-		</li>
-		<li>
-			<a class="nav-link text-dark" asp-controller="Plot" asp-action="Index">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-				Notatnik Fabularny
-			</a>
-		</li>
-		<li>
-			<a class="nav-link text-dark" asp-controller="Personal" asp-action="Index">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-				Notatnik Osobisty
-			</a>
-		</li>
-		<li>
-			<a class="nav-link text-dark" asp-controller="NPC" asp-action="Index">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-				Postaci NPC
-			</a>
-		</li>
-		<li>
-			<a class="nav-link text-dark" asp-controller="ManualTab" asp-action="Index">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-				Zakładki do podręczników
-			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link text-dark" asp-controller="InvitePlayer" asp-action="Index">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-				Gracze w Sesji
-			</a>
-		</li>
+		if (User.IsInRole("GameMaster"))
+		{
+			<li>
+				<a class="nav-link text-dark" asp-controller="Chronology" asp-action="Index">
+					<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+					Notatnik Chronologii
+				</a>
+			</li>
+			<li>
+				<a class="nav-link text-dark" asp-controller="Plot" asp-action="Index">
+					<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+					Notatnik Fabularny
+				</a>
+			</li>
+			<li>
+				<a class="nav-link text-dark" asp-controller="Personal" asp-action="Index">
+					<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+					Notatnik Osobisty
+				</a>
+			</li>
+			<li>
+				<a class="nav-link text-dark" asp-controller="NPC" asp-action="Index">
+					<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+					Postaci NPC
+				</a>
+			</li>
+			<li>
+				<a class="nav-link text-dark" asp-controller="ManualTab" asp-action="Index">
+					<svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+					Zakładki do podręczników
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark" asp-controller="InvitePlayer" asp-action="Index">
+					<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+					Gracze w Sesji
+				</a>
+			</li>
+		}
 		<li class="nav-item">
 			<a class="nav-link text-dark" asp-controller="Session" asp-action="ResetSession">
 				<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>

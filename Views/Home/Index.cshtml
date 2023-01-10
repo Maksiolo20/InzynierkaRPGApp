@@ -69,7 +69,8 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
             </div>
         }
 
-
+        @if (User.IsInRole("GameMaster"))
+        {
         @if (Model.BeastiaryCards.Count != null && Model.BeastiaryCards.Count != 0)
         {
             <a class="h3" asp-controller="Beastiary" asp-action="Index">Bestiariusz</a>
@@ -89,7 +90,7 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
                 }
             </div>
         }
-
+        }
         @{
             var MapList = Model.Maps.MapsInSession;
         }
@@ -116,7 +117,8 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
                 }
             </div>
         }
-
+        @if(User.IsInRole("GameMaster"))
+        {
         @if (Model.ChronologyNotes.Count != null && Model.ChronologyNotes.Count != 0)
         {
             <a class="h3" asp-controller="Chronology" asp-action="Index">Notatki Chronologiczne</a>
@@ -184,5 +186,6 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
                 }
             </div>
         }
+        }
     </div>
-    }
+}
