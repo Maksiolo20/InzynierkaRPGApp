@@ -1,30 +1,33 @@
 ﻿@model MapViewModel
 <script src="~/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
-<form asp-controller="Map" asp-action="CreateMap" method="POST" enctype="multipart/form-data">
+@if (User.IsInRole("GameMaster"))
+{
+    <form asp-controller="Map" asp-action="CreateMap" method="POST" enctype="multipart/form-data">
 
-    <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
 
-    <div class="form-outline mb-4 h4">
-        Dodajesz nową mapę. Nadaj jej nazwę, dodaj opis oraz załącz obrazek w rozszerzeniu .png lub .jpg.
-    </div>
-    <div class="form-outline mb-4">
-        <label class="form-label" asp-for="AddedMap.Title">Nazwa Mapy</label>
-        <div>
-            <input asp-for="AddedMap.Title" class="form-control" />
-            <span asp-validation-for="AddedMap.Title" class="text-danger"></span>
+        <div class="form-outline mb-4 h4">
+            Dodajesz nową mapę. Nadaj jej nazwę, dodaj opis oraz załącz obrazek w rozszerzeniu .png lub .jpg.
         </div>
-    </div>
-    <div class="form-outline mb-4">
-        <label class="form-label" asp-for="AddedMap.Body">Opis Mapy</label>
-        <div>
-            <textarea asp-for="AddedMap.Body" class="form-control"></textarea>
-            <span asp-validation-for="AddedMap.Body" class="text-danger"></span>
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="AddedMap.Title">Nazwa Mapy</label>
+            <div>
+                <input asp-for="AddedMap.Title" class="form-control" />
+                <span asp-validation-for="AddedMap.Title" class="text-danger"></span>
+            </div>
         </div>
-    </div> 
-    <div>Dodaj Mapę:</div>
-    <input type="file" name="file" />
-    <input type="submit" class="btn btn-success" value="Utwórz!" />
-</form>
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="AddedMap.Body">Opis Mapy</label>
+            <div>
+                <textarea asp-for="AddedMap.Body" class="form-control"></textarea>
+                <span asp-validation-for="AddedMap.Body" class="text-danger"></span>
+            </div>
+        </div> 
+        <div>Dodaj Mapę:</div>
+        <input type="file" name="file" />
+        <input type="submit" class="btn btn-success" value="Utwórz!" />
+    </form>
+}
 @section Scripts{
     <script>
         tinymce.init({

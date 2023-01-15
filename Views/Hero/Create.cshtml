@@ -1,30 +1,33 @@
 ﻿@model ExpandedCardModel
 <script src="~/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
-<form asp-controller="Hero" asp-action="CreateHero" method="POST" enctype="multipart/form-data">
+@if (User.IsInRole("GameMaster"))
+{
+    <form asp-controller="Hero" asp-action="CreateHero" method="POST" enctype="multipart/form-data">
 
-    <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
 
-    <div class ="form-outline mb-4 h4">
-        Dodajesz nowego bohatera. Jest to postać gracza. Nadaj nazwę, dodaj opis oraz plik w rozszerzeniu PDF z kartą postaci.
-    </div>
-    <div class="form-outline mb-4">
-        <label class="form-label" asp-for="Card.Title">Imię Bohatera</label>
-        <div>
-            <input asp-for="Card.Title" class="form-control" />
-            <span asp-validation-for="Card.Title" class="text-danger"></span>
+        <div class="form-outline mb-4 h4">
+            Dodajesz nowego bohatera. Jest to postać gracza. Nadaj nazwę, dodaj opis oraz plik w rozszerzeniu PDF z kartą postaci.
         </div>
-    </div>
-    <div class="form-outline mb-4">
-        <label class="form-label" asp-for="Card.Body">Opis Bohatera</label>
-        <div>
-            <textarea asp-for="Card.Body" class="form-control"></textarea>
-            <span asp-validation-for="Card.Body" class="text-danger"></span>
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Card.Title">Imię Bohatera</label>
+            <div>
+                <input asp-for="Card.Title" class="form-control" />
+                <span asp-validation-for="Card.Title" class="text-danger"></span>
+            </div>
         </div>
-    </div> 
-    <div>Dodaj PDF Bohatera:</div>
-    <input type="file" name="file" />
-    <input type="submit" class="btn btn-success" value="Utwórz!" />
-</form>
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Card.Body">Opis Bohatera</label>
+            <div>
+                <textarea asp-for="Card.Body" class="form-control"></textarea>
+                <span asp-validation-for="Card.Body" class="text-danger"></span>
+            </div>
+        </div>
+        <div>Dodaj PDF Bohatera:</div>
+        <input type="file" name="file" />
+        <input type="submit" class="btn btn-success" value="Utwórz!" />
+    </form>
+}
 @section Scripts{
     <script>
         tinymce.init({
