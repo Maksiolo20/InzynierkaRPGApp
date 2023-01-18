@@ -26,7 +26,7 @@
   <ItemGroup>
     <Folder Include="Stored\Maps\" />
     <Folder Include="wwwroot\HeroCardFiles\" />
-    <Folder Include="wwwroot\BestiaryCardFiles\" />
+    <Folder Include="wwwroot\BeastiaryCardFiles\" />
     <Folder Include="wwwroot\Maps\" />
     <Folder Include="wwwroot\NPCCardFiles\" />
   </ItemGroup>

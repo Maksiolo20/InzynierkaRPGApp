@@ -28,6 +28,14 @@
             text-decoration: none;
             color: Black;
         }
+        a.h3{
+            margin-bottom: 15px;
+            margin-top: 15px;
+        }
+        h2{
+        margin-bottom: 25px;
+        margin-top: 75px;
+        }
 </style>
 @*#9ea6ff*@
 
@@ -40,7 +48,7 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
         @*<h5 class="card-title h1"></h5>*@
         @foreach (var item in Model.Text)
         {
-            <li class="card-text h3 mx-5">@item</li>
+            <li class="card-text h3 mx-lg-5">@item</li>
         }
     </div>
 </div>
@@ -173,7 +181,7 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
             <div class="row">
                 @for (int i = 0; i < Model.ManualTab.Count; i++)
                 {
-                    <div class="card my-4" style="width: 90%;">
+                        <div class="card my-4 col-sm" style="width: 90%;">
                         <div class="card-body">
                             <h5 class="card-title">@Model.ManualTab[i].Title</h5>
                             @if (Model.ManualTab[i].ManualURL != null)

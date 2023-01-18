@@ -16,7 +16,7 @@
                 <h5 class="card-title">@Model.ListOfCards[i].Title</h5>
                 @if (Model.ListOfCards[i].CardPath != null)
                 {
-                    <a class="card-subtitle mb-2 text-muted" href="../NPCCardFiles/@Model.ListOfCards[i].CardPath" target="_blank">Otwórz Kartę Bohatera</a>
+                    <a class="card-subtitle mb-2 text-muted" href="../HeroCardFiles/@Model.ListOfCards[i].CardPath" target="_blank">Otwórz Kartę Bohatera</a>
                 }
                 <p class="card-text">@Model.ListOfCards[i].Body</p>
                 @if (User.IsInRole("GameMaster"))

@@ -15,7 +15,7 @@
                 <h5 class="card-title">@Model.ListOfCards[i].Title</h5>
                 @if(Model.ListOfCards[i].CardPath!=null)
                 {
-                <a class="card-subtitle mb-2 text-muted" href="../NPCCardFiles/@Model.ListOfCards[i].CardPath" target="_blank">Otwórz Kartę Bestii</a>
+                <a class="card-subtitle mb-2 text-muted" href="../BeastiaryCardFiles/@Model.ListOfCards[i].CardPath" target="_blank">Otwórz Kartę Bestii</a>
                 }
                 <p class="card-text">@Model.ListOfCards[i].Body</p>
 @*                <a asp-controller="Beastiary" asp-action="Edit" class="card-link">Edytuj</a>
