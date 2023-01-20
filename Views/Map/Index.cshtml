@@ -21,7 +21,7 @@
                 {
                     @*<a class="card-subtitle mb-2 text-muted" asp-controller="Map" asp-action="Middlewere" asp-route-path="@MapList[i].MapPath" target="_blank">Otwórz Mapę</a>*@
                     <form action="@MapList[i].MapPath">
-                        <button class="btn btn-info">Otwórz Mapę</button>
+                        <button class="btn btn-info" formtarget="_blank">Otwórz Mapę</button>
                     </form>
                 }
                 <p class="card-text">@MapList[i].Body</p>

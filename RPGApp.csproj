@@ -28,6 +28,7 @@
     <Folder Include="wwwroot\HeroCardFiles\" />
     <Folder Include="wwwroot\BeastiaryCardFiles\" />
     <Folder Include="wwwroot\Maps\" />
+    <Folder Include="wwwroot\BestiaryCardFiles\" />
     <Folder Include="wwwroot\NPCCardFiles\" />
   </ItemGroup>
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RPGApp.Data;
 
@@ -11,13 +12,14 @@ using RPGApp.Data;
 namespace RPGApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230104104746_nullable_card_body")]
+    partial class nullable_card_body
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.12")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -47,22 +49,6 @@ namespace RPGApp.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "edd7bb4a-46c2-487c-aaa3-ff7efe0b5ace",
-                            ConcurrencyStamp = "8fad8932-2937-4b41-a002-87b4c9e2dfce",
-                            Name = "GameMaster",
-                            NormalizedName = "GAMEMASTER"
-                        },
-                        new
-                        {
-                            Id = "c624adf5-4d19-45ea-9b52-29f1a4484f17",
-                            ConcurrencyStamp = "c7a285a3-e8e9-41a0-a391-c97b73d05f71",
-                            Name = "Player",
-                            NormalizedName = "PLAYER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -286,6 +272,7 @@ namespace RPGApp.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TabId"), 1L, 1);
 
                     b.Property<string>("Body")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ManualURL")
@@ -315,6 +302,7 @@ namespace RPGApp.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MapId"), 1L, 1);
 
                     b.Property<string>("Body")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MapPath")
@@ -373,7 +361,7 @@ namespace RPGApp.Data.Migrations
 
                     b.Property<string>("GameMasterId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -381,22 +369,9 @@ namespace RPGApp.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GameMasterId");
+
                     b.ToTable("Sessions");
-                });
-
-            modelBuilder.Entity("RPGApp.Data.UserSession", b =>
-                {
-                    b.Property<int>("SessionIdsFK")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserIdsFK")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("SessionIdsFK", "UserIdsFK");
-
-                    b.HasIndex("UserIdsFK");
-
-                    b.ToTable("UserSessions");
                 });
 
             modelBuilder.Entity("RPGApp.Data.User", b =>
@@ -504,23 +479,15 @@ namespace RPGApp.Data.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("RPGApp.Data.UserSession", b =>
+            modelBuilder.Entity("RPGApp.Data.Session", b =>
                 {
-                    b.HasOne("RPGApp.Data.Session", "Session")
-                        .WithMany("Users")
-                        .HasForeignKey("SessionIdsFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGApp.Data.User", "User")
+                    b.HasOne("RPGApp.Data.User", "GameMaster")
                         .WithMany("Sessions")
-                        .HasForeignKey("UserIdsFK")
+                        .HasForeignKey("GameMasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Session");
-
-                    b.Navigation("User");
+                    b.Navigation("GameMaster");
                 });
 
             modelBuilder.Entity("RPGApp.Data.Session", b =>
@@ -532,8 +499,6 @@ namespace RPGApp.Data.Migrations
                     b.Navigation("Notes");
 
                     b.Navigation("Tabs");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("RPGApp.Data.User", b =>
