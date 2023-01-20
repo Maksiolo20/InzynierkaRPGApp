@@ -1,4 +1,5 @@
 ﻿@model ExpandedCardModel
+
 <h2  style="font-size: 1.5em">Bestiariusz</h2>
 <div id="AllMessages">
 
@@ -18,6 +19,10 @@
                 <a class="card-subtitle mb-2 text-muted" href="../BeastiaryCardFiles/@Model.ListOfCards[i].CardPath" target="_blank">Otwórz Kartę Bestii</a>
                 }
                 <p class="card-text">@Model.ListOfCards[i].Body</p>
+                @if (Model.ListOfCards[i].CardPath != null)
+                {
+                    <img src="BeastiaryCardFiles/@Model.ListOfCards[i].CardPath">
+                }
 @*                <a asp-controller="Beastiary" asp-action="Edit" class="card-link">Edytuj</a>
                 <a href="#" class="card-link">Usuń</a>*@
             </div>

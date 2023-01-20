@@ -1,7 +1,7 @@
 ﻿@model MapViewModel
 <style>
     img {
-    width: 100%;
+    max-width: 75%;
     object-fit: contain;
 }
 </style>
@@ -27,11 +27,14 @@
                 {
                     @*<a class="card-subtitle mb-2 text-muted" asp-controller="Map" asp-action="Middlewere" asp-route-path="@MapList[i].MapPath" target="_blank">Otwórz Mapę</a>*@
                     <form action="@MapList[i].MapPath">
-                        <button class="btn btn-info">Otwórz Mapę</button>
+                        <button class="btn btn-info">Otwórz w nowej karcie</button>
                     </form>
                 }
                 <p class="card-text">@MapList[i].Body</p>
-                <img src="@MapList[i].MapPath">
+                @if (MapList[i].MapPath != null)
+                {
+                    <img src="@MapList[i].MapPath">
+                }
                 @if (User.IsInRole("GameMaster"))
                 {
 @*                <a href="#" class="card-link">Edytuj</a>
