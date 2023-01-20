@@ -1,4 +1,10 @@
 ﻿@model MapViewModel
+<style>
+    img {
+    width: 100%;
+    object-fit: contain;
+}
+</style>
 <h2 class="card-title" style="font-size: 1.5em">Mapy</h2>
 <div id="AllMessages">
     @if (User.IsInRole("GameMaster"))
@@ -25,6 +31,7 @@
                     </form>
                 }
                 <p class="card-text">@MapList[i].Body</p>
+                <img src="@MapList[i].MapPath">
                 @if (User.IsInRole("GameMaster"))
                 {
 @*                <a href="#" class="card-link">Edytuj</a>
