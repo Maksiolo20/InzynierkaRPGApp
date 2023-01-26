@@ -28,14 +28,26 @@
             text-decoration: none;
             color: Black;
         }
-        a.h3{
+
+        a.h3 {
             margin-bottom: 15px;
             margin-top: 15px;
         }
-        h2{
+
+    h2 {
         margin-bottom: 25px;
         margin-top: 75px;
-        }
+    }
+
+    img.characterCardImg {
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    img.mapImg {
+        max-width: 75%;
+        object-fit: contain;
+    }
 </style>
 @*#9ea6ff*@
 
@@ -71,6 +83,10 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
                                 <a class="card-subtitle mb-2 text-muted" href="../NPCCardFiles/@Model.HeroCards[i].CardPath" target="_blank">Otwórz Kartę Bohatera</a>
                             }
                             <p class="card-text">@Model.HeroCards[i].Body</p>
+                            @if (Model.HeroCards[i].CardPath != null)
+                            {
+                                <img class="characterCardImg" src="HeroCardFiles/@Model.HeroCards[i].CardPath">
+                            }
                         </div>
                     </div>
                 }
@@ -79,25 +95,29 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
 
         @if (User.IsInRole("GameMaster"))
         {
-        @if (Model.BeastiaryCards.Count != null && Model.BeastiaryCards.Count != 0)
-        {
-            <a class="h3" asp-controller="Beastiary" asp-action="Index">Bestiariusz</a>
-            <div class="row">
-                @for (int i = 0; i < Model.BeastiaryCards.Count; i++)
-                {
-                    <div class="card my-4 col-sm" style="width: 90%;">
-                        <div class="card-body ">
-                            <h5 class="card-title">@Model.BeastiaryCards[i].Title</h5>
-                            @if (Model.BeastiaryCards[i].CardPath != null)
-                            {
-                                <a class="card-subtitle mb-2 text-muted" href="../NPCCardFiles/@Model.BeastiaryCards[i].CardPath" target="_blank">Otwórz Kartę Bohatera</a>
-                            }
-                            <p class="card-text">@Model.BeastiaryCards[i].Body</p>
+            @if (Model.BeastiaryCards.Count != null && Model.BeastiaryCards.Count != 0)
+            {
+                <a class="h3" asp-controller="Beastiary" asp-action="Index">Bestiariusz</a>
+                <div class="row">
+                    @for (int i = 0; i < Model.BeastiaryCards.Count; i++)
+                    {
+                        <div class="card my-4 col-sm" style="width: 90%;">
+                            <div class="card-body ">
+                                <h5 class="card-title">@Model.BeastiaryCards[i].Title</h5>
+                                @if (Model.BeastiaryCards[i].CardPath != null)
+                                {
+                                    <a class="card-subtitle mb-2 text-muted" href="../NPCCardFiles/@Model.BeastiaryCards[i].CardPath" target="_blank">Otwórz Kartę Bohatera</a>
+                                }
+                                <p class="card-text">@Model.BeastiaryCards[i].Body</p>
+                                @if (Model.BeastiaryCards[i].CardPath != null)
+                                {
+                                    <img class="characterCardImg" src="BeastiaryCardFiles/@Model.BeastiaryCards[i].CardPath">
+                                }
+                            </div>
                         </div>
-                    </div>
-                }
-            </div>
-        }
+                    }
+                </div>
+            }
         }
         @{
             var MapList = Model.Maps.MapsInSession;
@@ -120,80 +140,108 @@ background: linear-gradient(75deg, rgba(158,166,255,1) 11%, rgba(133,227,255,1) 
                                 </form>
                             }
                             <p class="card-text">@MapList[i].Body</p>
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-        @if(User.IsInRole("GameMaster"))
-        {
-        @if (Model.ChronologyNotes.Count != null && Model.ChronologyNotes.Count != 0)
-        {
-            <a class="h3" asp-controller="Chronology" asp-action="Index">Notatki Chronologiczne</a>
-            <div class="row">
-                @for (int i = 0; i < Model.ChronologyNotes.Count; i++)
-                {
-                    <div class="card my-4 col-sm" style="width: 90%;">
-                        <div class="card-body">
-                            <h5 class="card-title">@Model.ChronologyNotes[i].Title</h5>
-                            <p class="card-text">@Model.ChronologyNotes[i].Body</p>
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-
-        @if (Model.PlotNotes.Count != null && Model.PlotNotes.Count != 0)
-        {
-            <a class="h3" asp-controller="Plot" asp-action="Index">Notatki Fabularne</a>
-            <div class="row">
-                @for (int i = 0; i < Model.PlotNotes.Count; i++)
-                {
-                    <div class="card my-4 col-sm" style="width: 90%;">
-                        <div class="card-body">
-                            <h5 class="card-title">@Model.PlotNotes[i].Title</h5>
-                            <p class="card-text">@Model.PlotNotes[i].Body</p>
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-
-        @if (Model.PersonalNotes.Count != null && Model.PersonalNotes.Count != 0)
-        {
-            <a class="h3" asp-controller="Personal" asp-action="Index">Notatki Osobiste</a>
-            <div class="row">
-                @for (int i = 0; i < Model.PersonalNotes.Count; i++)
-                {
-                    <div class="card my-4 col-sm" style="width: 90%;">
-                        <div class="card-body">
-                            <h5 class="card-title">@Model.PersonalNotes[i].Title</h5>
-                            <p class="card-text">@Model.PersonalNotes[i].Body</p>
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-
-        @if (Model.ManualTab.Count != null && Model.ManualTab.Count != 0)
-        {
-            <a class="h3" asp-controller="ManualTab" asp-action="Index">Zakładki</a>
-            <div class="row">
-                @for (int i = 0; i < Model.ManualTab.Count; i++)
-                {
-                        <div class="card my-4 col-sm" style="width: 90%;">
-                        <div class="card-body">
-                            <h5 class="card-title">@Model.ManualTab[i].Title</h5>
-                            @if (Model.ManualTab[i].ManualURL != null)
+                            @if (MapList[i].MapPath != null)
                             {
-                                <a href="@Model.ManualTab[i].ManualURL" target="_blank" class="card-title">Otwórz link (@Model.ManualTab[i].ManualURL)</a>
+                                <img class="mapImg" src="@MapList[i].MapPath">
                             }
-                            <p class="card-text">@Model.ManualTab[i].Body</p>
                         </div>
                     </div>
                 }
             </div>
         }
+        @if (User.IsInRole("GameMaster"))
+        {
+            @if (Model.ChronologyNotes.Count != null && Model.ChronologyNotes.Count != 0)
+            {
+                <a class="h3" asp-controller="Chronology" asp-action="Index">Notatki Chronologiczne</a>
+                <div class="row">
+                    @for (int i = 0; i < Model.ChronologyNotes.Count; i++)
+                    {
+                        <div class="card my-4 col-sm" style="width: 90%;">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.ChronologyNotes[i].Title</h5>
+                                <p class="card-text">@Model.ChronologyNotes[i].Body</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Model.PlotNotes.Count != null && Model.PlotNotes.Count != 0)
+            {
+                <a class="h3" asp-controller="Plot" asp-action="Index">Notatki Fabularne</a>
+                <div class="row">
+                    @for (int i = 0; i < Model.PlotNotes.Count; i++)
+                    {
+                        <div class="card my-4 col-sm" style="width: 90%;">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.PlotNotes[i].Title</h5>
+                                <p class="card-text">@Model.PlotNotes[i].Body</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Model.PersonalNotes.Count != null && Model.PersonalNotes.Count != 0)
+            {
+                <a class="h3" asp-controller="Personal" asp-action="Index">Notatki Osobiste</a>
+                <div class="row">
+                    @for (int i = 0; i < Model.PersonalNotes.Count; i++)
+                    {
+                        <div class="card my-4 col-sm" style="width: 90%;">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.PersonalNotes[i].Title</h5>
+                                <p class="card-text">@Model.PersonalNotes[i].Body</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Model.NPCCards.Count != null && Model.NPCCards.Count != 0)
+            {
+                <a class="h3" asp-controller="NPC" asp-action="Index">Postaci NPC</a>
+                <div class="row">
+                @for (int i = 0; i < Model.NPCCards.Count; i++)
+                {
+
+                    <div class="card my-4" style="width: 90%;">
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.NPCCards[i].Title</h5>
+                            @if (Model.NPCCards[i].CardPath != null)
+                            {
+                                <a class="card-subtitle mb-2 text-muted" href="../NPCCardFiles/@Model.NPCCards[i].CardPath" target="_blank">Otwórz Kartę Postaci</a>
+                            }
+                            <p class="card-text">@Model.NPCCards[i].Body</p>
+                            @if (Model.NPCCards[i].CardPath != null)
+                            {
+                                    <img class="characterCardImg" src="NPCCardFiles/@Model.NPCCards[i].CardPath">
+                            }
+                        </div>
+                    </div>
+                }
+                </div>
+            }
+            @if (Model.ManualTab.Count != null && Model.ManualTab.Count != 0)
+            {
+                <a class="h3" asp-controller="ManualTab" asp-action="Index">Zakładki</a>
+                <div class="row">
+                    @for (int i = 0; i < Model.ManualTab.Count; i++)
+                    {
+                        <div class="card my-4 col-sm" style="width: 90%;">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.ManualTab[i].Title</h5>
+                                @if (Model.ManualTab[i].ManualURL != null)
+                                {
+                                    <a href="@Model.ManualTab[i].ManualURL" target="_blank" class="card-title">Otwórz link (@Model.ManualTab[i].ManualURL)</a>
+                                }
+                                <p class="card-text">@Model.ManualTab[i].Body</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
         }
     </div>
 }
